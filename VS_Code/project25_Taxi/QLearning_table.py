@@ -2,10 +2,12 @@ import gym
 import numpy as np
 import random
 
+# reward: -1 per step, +20 per success(end), -10 per illegal action
+# action: 0~3: move, 4: pickup passenger, 5: drop off.
 # hyperparameters
 alpha = 0.01
 gamma = 0.99
-n_episodes = 10000
+n_episodes = 20000
 interval = 500
 
 
