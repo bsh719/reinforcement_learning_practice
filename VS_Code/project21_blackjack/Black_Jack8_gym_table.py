@@ -7,14 +7,14 @@ import numpy as np
 
 # QLearning algorithm
 # hyper-parameters
-n_episodes = 100000
+n_episodes = 200000
 interval = 10000
 gamma = 0.99
 
 
 def preprocess(state):
     usable_ace = 1 if state[2] else 0
-    return [state[0], state[1], usable_ace]
+    return state[0], state[1], usable_ace
 
 def select_action(Q, state, epsilon):
     t = random.random()
