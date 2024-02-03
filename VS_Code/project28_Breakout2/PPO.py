@@ -65,7 +65,7 @@ class PPO(nn.Module):
         x = self.value_layers(x)
         return x
     
-    def act(self, state):
+    def get_act(self, state):
         out = self.Policy(state)
         p = random.random()
         if p < out[0, 0].item():
@@ -137,7 +137,7 @@ def main():
         lives = 5
 
         while not done:
-            act = model.act(s_tensor)
+            act = model.get_act(s_tensor)
             s, r, _, _, _ = E.step(act + 1)
             s2, r2, done, _, new_info = E.step(1)
             r += r2
