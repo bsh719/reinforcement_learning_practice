@@ -1,6 +1,6 @@
 import gym 
 import torch
-#from QLearning import QNet
+from QLearning import QNet
 from PPO import PPO
 from tqdm import tqdm
 
@@ -13,8 +13,8 @@ def preprocess_state(state, state2):
 
 
 def main():
-    #Q = torch.load("project28_Breakout2/QLearning_model.pth")
-    model = torch.load("project28_Breakout2/PPO_model.pth")
+    model = torch.load("project28_Breakout2/QLearning_model.pth")
+    #model = torch.load("project28_Breakout2/PPO_model.pth")
     render = False
     n_test = 100
     avg_score = 0.0
@@ -32,8 +32,7 @@ def main():
         score = 0.0
 
         while not done:
-            #act = Q.get_act(s_tensor, -1.0)
-            act = model.act(s_tensor)
+            act = model.get_act(s_tensor)
             s, r, _, _, _ = env.step(act + 1)
             s2, r2, done, _, _ = env.step(1)
             s_tensor = preprocess_state(s, s2)
