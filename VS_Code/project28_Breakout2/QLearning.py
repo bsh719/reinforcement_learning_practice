@@ -49,7 +49,7 @@ class QNet(nn.Module):
         x = self.fc_layers(x)
         return x
     
-    def get_act(self, state, epsilon):
+    def get_act(self, state, epsilon=-1.0):
         p = random.random()
         if p < epsilon:
             return random.randint(0, 2)
