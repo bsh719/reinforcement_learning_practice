@@ -6,8 +6,8 @@ import random
 
 
 # hyperparameters
-n_episodes = 200
-interval = 20
+n_episodes = 300
+interval = 30
 gamma = 0.99
 learning_rate = 0.01
 
@@ -57,7 +57,7 @@ def main():
     average_score = 0.0
 
     for epi in range(n_episodes):
-        E = env2 if epi % interval == interval - 1 else env1
+        E = env2 if epi == n_episodes - 1 else env1
         state = E.reset()[0]
         done = False
         epsilon = max(1.0 / (1 + epi // 10), 0.1)
@@ -67,9 +67,7 @@ def main():
             act = Q.select_act(state, epsilon)
             state2, r, done, _, _ = E.step(act * 2)
             score += r
-            if score < -10000:
-                done = True
-            elif epi % interval == interval - 1 and score < -1000:
+            if score < -5000:
                 done = True
 
             Q.episode.append((state, act, r, state2, done))
