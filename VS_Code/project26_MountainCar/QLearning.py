@@ -6,8 +6,8 @@ import random
 
 
 # hyperparameters
-n_episodes = 300
-interval = 30
+n_episodes = 200
+interval = 20
 gamma = 0.99
 learning_rate = 0.01
 
@@ -67,7 +67,7 @@ def main():
             act = Q.select_act(state, epsilon)
             state2, r, done, _, _ = E.step(act * 2)
             score += r
-            if score < -5000:
+            if score < -10000:
                 done = True
 
             Q.episode.append((state, act, r, state2, done))
