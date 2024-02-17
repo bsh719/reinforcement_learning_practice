@@ -4,7 +4,6 @@ import torch.nn.functional as F
 import random
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from copy import deepcopy
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print("device:", device)
@@ -17,6 +16,7 @@ print("device:", device)
 n_episodes = 500
 gamma = 0.99
 interval = 10
+learning_rate = 0.001
 
 
 class Environment:
@@ -97,7 +97,7 @@ class Qnet(nn.Module):
 
 def main():
     Q = Qnet().to(device)
-    optimizer = torch.optim.Adam(Q.parameters(), lr=0.001)
+    optimizer = torch.optim.Adam(Q.parameters(), lr=learning_rate)
     result_lst = []
     average_lst = []
     average_rew = 0.0
@@ -125,7 +125,7 @@ def main():
             loss.backward()
             optimizer.step()
 
-            state = deepcopy(state2)
+            state = state2
             score += reward
 
         average_rew += score / interval
